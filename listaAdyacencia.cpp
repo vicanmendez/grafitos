@@ -15,7 +15,7 @@ typedef struct nodo {
 typedef ListaAdy grafo[N];
 
 
-
+//Este método debe invocarse antes de hacer cualquier operación con el grafo
 void inicializarGrafo (grafo &g){
     for(int i=0; i<N; i++) {
         g[i] = new nodo;
@@ -23,15 +23,8 @@ void inicializarGrafo (grafo &g){
     }
 }
 
-/*
-void ingresarElemento(ListaAdy &L, int elemento) {
-    if(L == NULL) {
-        L->vert = elemento;
-    } else {
-        ingresarElemento(L->sig, elemento);
-    }
-}
-*/
+
+//Método que ingresa un nuevo elemento en una lista de adyacencia, necesitamos hacer uso de una Lista auxiliar para almacenar nuestro elemento.
 void ingresarElemento(ListaAdy &L, int elemento) {
     ListaAdy aux = new nodo;
     aux -> vert = elemento;
@@ -39,11 +32,14 @@ void ingresarElemento(ListaAdy &L, int elemento) {
     L = aux;
 }
 
+//En el vector de listas que representa nuestro grafo, debemos guardar el elemento en 2 listas, ya que cada una representa los "vecinos" de un vértice diferente
+//EJEMPLO: Si existe una arista entre los vértices 2 y 3, entonces agregamos a 3 como adyacente de 2, y a su vez a 2 como adyacente de 3.
 void crearArista(grafo &g, int v1, int v2) {
     ingresarElemento(g[v1], v2);
     ingresarElemento(g[v2], v1);
 }
 
+//Recorrer y mostrar una lista de adyacencia (recursivo)
 void mostrarLista(ListaAdy L) {
     if(L == NULL) {
         printf(" ");
@@ -56,7 +52,6 @@ void mostrarLista(ListaAdy L) {
 
 void cargarGrafo(grafo g){
     for(int i=0; i<N; i++) {
-        printf("Vecinos de %d : \n", i);
         mostrarLista(g[i]);
     }
 }
