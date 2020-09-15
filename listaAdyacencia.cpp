@@ -50,11 +50,15 @@ void mostrarLista(ListaAdy L) {
 }
 
 
+//Para mostrar el grafo, vamos mostrando cada una de las listas del vector correspondiente
 void cargarGrafo(grafo g){
     for(int i=0; i<N; i++) {
+        printf("Adyacentes en %d :", i);
         mostrarLista(g[i]);
+        printf("\n");
     }
 }
+
 
 
 int main(void) {
