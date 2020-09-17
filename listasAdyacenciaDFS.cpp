@@ -102,9 +102,8 @@ void DFS (grafo G, int verticeActual, bool visitado[N]){
         /* si aux->vert no fue visitado, sigo por la
         subrama que parte desde él */
         if (!visitado[aux->vert]) {
-        	printf("El vértice actual es: %d \n", verticeActual);
-        	printf("El valor del array de visitados sobre el siguiente vértice: %b \n", visitado[aux->vert]);
-        	printf("Ahora recorreremos sobre el vértice %d \n", aux->vert);
+        	//printf("El vértice actual es: %d \n", verticeActual);
+        	//printf("Ahora recorreremos sobre el vértice %d \n", aux->vert);
             DFS(G, aux->vert, visitado);
    		 }
         aux = aux->sig;
