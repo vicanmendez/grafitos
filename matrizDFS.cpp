@@ -79,7 +79,7 @@ int main(void) {
           break;
 
           case 3:
-            dfs(g, visitados, 1);
+            dfs(g, visitados, 0);
           break;
 
           default:
