@@ -40,13 +40,37 @@ void crearArista(grafo &g, int v1, int v2) {
 }
 
 //Recorrer y mostrar una lista de adyacencia (recursivo)
-void mostrarLista(ListaAdy L) {
+int mostrarLista(ListaAdy L) {
     if(L == NULL) {
         printf(" ");
     } else {
         printf("%d - ", L->vert);
         mostrarLista(L -> sig);
     }
+}
+
+//Recorrer y contar todos los elementos "vertice" de una lista de adyacencia
+int contarElementos(ListaAdy L) {
+	int vecinos = 0;
+    if(L == NULL) {
+        printf(" ");
+    } else {
+        printf("%d - ", L->vert);
+        vecinos++; // vecinos = vecinos + 1
+        vecinos += contarElementos(L -> sig);
+    }
+    return vecinos;
+}
+
+//Retorna la cantidad de vecinos de un vértice
+int contarVecinos(grafo g, int vert) {
+	int cant = 0;
+	 for(int i=0; i<N; i++) {
+        if(i == vert) {
+        	cant = contarElementos(g[i]);
+		}
+    }
+    return cant;
 }
 
 //Para mostrar el grafo, vamos mostrando cada una de las listas del vector correspondiente
@@ -95,7 +119,9 @@ void DFS (grafo G, int verticeActual, bool visitado[N]){
     /* marco el vértice actual como visitado */
     visitado[verticeActual] = true;
     /* aquí va el procesamiento ANTES de recorrer la lista de vecinos */
+    
     printf("A la ida: %d \n", verticeActual);
+    
     /* recorremos los vecinos del vértice actual */
     ListaAdy aux = G[verticeActual];
     while (aux != NULL) {
@@ -104,12 +130,14 @@ void DFS (grafo G, int verticeActual, bool visitado[N]){
         if (!visitado[aux->vert]) {
         	//printf("El vértice actual es: %d \n", verticeActual);
         	//printf("Ahora recorreremos sobre el vértice %d \n", aux->vert);
+        	
             DFS(G, aux->vert, visitado);
    		 }
         aux = aux->sig;
     }
     /* aquí va el procesamiento DESPUÉS de visitar las subramas del vértice */
     printf("A la vuelta: %d \n", verticeActual);
+  
 
 }
 
@@ -149,7 +177,8 @@ int main(void) {
       printf("1-Ingresar una arista \n");
       printf("2- Mostrar todo el grafo \n");
       printf("3- Recorrer con DFS \n");
-      printf("4- Recorrer con DFS (predefinido)");
+      printf("4- Recorrer con DFS (predefinido) \n");
+      printf("5- Contar vecinos de un vertice \n");
       printf("0-Salir \n");
       scanf("%d", &op);
       
@@ -170,6 +199,10 @@ int main(void) {
          case 4:
             DFS(g, 0, visitados);
             break;
+        case 5:
+        	printf("Ingresar un vértice \n");
+        	scanf("%d", &a);
+        	printf("la cantidad de vecinos es: %d", contarVecinos(g, a));
           default:
             break;
     	}
