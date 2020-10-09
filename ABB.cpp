@@ -1,37 +1,44 @@
 #include <stdio.h>
 
+
+//Definimos un tipo de datos NODO que contendrá la base de un ABB, un puntero a nodo para su sub árbol IZQUIERDO y otro puntero a nodo para su sub árbol DERECHO
 typedef struct nodo{
     int base;
     nodo * izq;
     nodo * der;
 }*ABB;
 
+
 void crear(ABB &arbol) {
     arbol = NULL;
 }
 
+//Determina si un árbol es vacío
 bool esVacio(ABB a) {
 
    return (a == NULL);
 }
 
+//Recibe un ABB por referencia y un elemento, e inserta ese elemento en el ABB
 void insertarElemento(ABB &arbol, int e) {
-    if(esVacio(arbol)) {
+    if(esVacio(arbol)) { //Si el árbol es vacío, añadimos la base y definimos nulos los sub árboles izquierdo y derecho
         arbol = new nodo;
         arbol->base = e;
         arbol->der = NULL;
         arbol->izq = NULL;
 
-    } else {
-        if(e > (arbol->base)) {
+    } else { //Si no es vacío, realizamos el mismo procedimiento sobre el sub árbol correspondiente
+        if(e > (arbol->base)) { //Si el elemento es mayor a la base, va para el lado derecho
             insertarElemento(arbol->der, e);
         } else {
-            insertarElemento(arbol->izq, e);
+            insertarElemento(arbol->izq, e); //Si es menor a la base, va, para el lado izquierdo
         }
     }
 }
 
-
+/*
+La recorrida en preOrden visita la base, luego el sub árbol izquierdo y luego el derecho
+*/
 void preOrden(ABB a) {
     if(a != NULL) {
         printf("%d - ", a->base);
@@ -40,6 +47,9 @@ void preOrden(ABB a) {
     }
 }
 
+/*
+En inOrden, visitamos primero el subárbol izquierdo, luego la base y luego el derecho
+*/
 void inOrden(ABB a) {
     if(!esVacio(a)) {
         if(a->izq != NULL) {
@@ -50,11 +60,13 @@ void inOrden(ABB a) {
             inOrden(a->der);
         }
 
-    } //Si no es vacío
-
+    } 
 }
 
 
+/*
+En postOrden, visitamos primero el subárbol izquierdo, luego el derecho y por último la base
+*/
 void postOrden(ABB a) {
     if(!esVacio(a)) {
         if(a->izq != NULL) {
@@ -66,14 +78,17 @@ void postOrden(ABB a) {
         printf("%d - ", a->base);
 
 
-    } //Si no es vacío
+    } 
 
 }
 
+/* 
+Recibe un ABB y un elemento, y retorna TRUE si el elemento pertenece al ABB, FALSE en caso contrario
+*/
 bool buscarElemento(ABB a, int elemento) {
     bool pertenece = false;
-    if(!esVacio(a)) { //Si el arbol no es vacío
-        if(a->base == elemento) {
+    if(!esVacio(a)) { //Si el árbol no es vacío
+        if(a->base == elemento) { //Si el elemento es la raíz, ya lo encontramos
             pertenece = true;
         } else if(a->base > elemento) { //Si la raíz es mayor que el elemento buscado, buscamos en la rama izquierda
             pertenece = buscarElemento(a->izq, elemento);
