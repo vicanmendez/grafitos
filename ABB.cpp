@@ -52,13 +52,9 @@ En inOrden, visitamos primero el subárbol izquierdo, luego la base y luego el d
 */
 void inOrden(ABB a) {
     if(!esVacio(a)) {
-        if(a->izq != NULL) {
-            inOrden(a->izq);
-            }
+    	inOrden(a->izq);
         printf("%d - ", a->base);
-        if(a->der != NULL) {
-            inOrden(a->der);
-        }
+        inOrden(a->der);
 
     } 
 }
@@ -69,14 +65,9 @@ En postOrden, visitamos primero el subárbol izquierdo, luego el derecho y por �
 */
 void postOrden(ABB a) {
     if(!esVacio(a)) {
-        if(a->izq != NULL) {
-            postOrden(a->izq);
-            }
-        if(a->der != NULL) {
-            postOrden(a->der);
-        }
-        printf("%d - ", a->base);
-
+      postOrden(a->izq);
+      postOrden(a->der);
+     printf("%d - ", a->base);
 
     } 
 
